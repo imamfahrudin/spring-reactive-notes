@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -37,7 +38,8 @@ public class NoteController {
      */
     @GetMapping("/{id}")
     public Mono<Note> getNoteById(@PathVariable @NonNull Long id) {
-        return noteService.findById(id);
+        return noteService.findById(id)
+                .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND, "Note not found")));
     }
 
     /**

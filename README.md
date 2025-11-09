@@ -15,6 +15,7 @@ A demo project for Spring Boot Reactive CRUD operations using WebFlux, R2DBC, an
 - Non-blocking database operations with R2DBC and H2
 - RESTful API for note management
 - OpenAPI/Swagger documentation
+- Comprehensive integration testing with JUnit 5 and Hamcrest
 - Docker containerization
 
 ## Technologies
@@ -24,6 +25,9 @@ A demo project for Spring Boot Reactive CRUD operations using WebFlux, R2DBC, an
 - **Spring WebFlux** for reactive web
 - **R2DBC** for reactive database access
 - **H2 Database** (in-memory)
+- **JUnit 5** for unit and integration testing
+- **Hamcrest** for expressive test assertions
+- **WebTestClient** for reactive integration testing
 - **Lombok** for reducing boilerplate code
 - **Maven** for build management
 - **Docker** for containerization
@@ -76,6 +80,21 @@ A demo project for Spring Boot Reactive CRUD operations using WebFlux, R2DBC, an
 mvn clean package
 ```
 
+### Testing
+
+Run the test suite with Maven:
+
+```bash
+mvn test
+```
+
+The project includes comprehensive integration tests using:
+- **JUnit 5** for test framework
+- **Hamcrest** for readable assertions
+- **WebTestClient** for testing reactive REST endpoints
+
+Test coverage includes all CRUD operations and error scenarios.
+
 ## Project Structure
 
 ```
@@ -99,7 +118,29 @@ src/
 │       └── schema.sql
 └── test/
     └── java/com/imamfahrudin/notes/
+        └── controller/
+            └── NoteControllerIntegrationTest.java
 ```
+
+## Contributing
+
+### Commit Message Conventions
+
+This project follows conventional commit format. All commit messages must start with `<type>:` where type is one of:
+
+- `feat`: A new feature
+- `fix`: A bug fix
+- `docs`: Documentation only changes
+- `style`: Changes that do not affect the meaning of the code (white-space, formatting, etc.)
+- `refactor`: A code change that neither fixes a bug nor adds a feature
+- `test`: Adding missing tests or correcting existing tests
+- `chore`: Changes to the build process or auxiliary tools
+
+**Examples:**
+- `feat: add user authentication`
+- `fix: resolve null pointer exception`
+- `test: add integration tests for note controller`
+- `docs: update README with testing instructions`
 
 ## License
 

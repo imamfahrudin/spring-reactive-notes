@@ -55,6 +55,12 @@ Use `@NonNull` from `org.springframework.lang` on method parameters that shouldn
  */
 ```
 
+### Commit Message Conventions
+**Mandatory**: All commit messages must follow conventional commit format
+- Start with `<type>:` where type is one of: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`
+- Examples: `feat: add user authentication`, `fix: resolve null pointer exception`, `test: add integration tests`
+- **When suggesting commit messages**: Always use `git status` and `git diff` to understand what files changed and the nature of the changes before providing commit message suggestions
+
 ## Development Workflows
 
 ### Running the Application
@@ -71,10 +77,11 @@ mvn clean package
 ```
 
 ### Testing
-No test framework configured yet. When adding tests:
-- Use `reactor-test` (already in `pom.xml`)
+**Configured**: JUnit 5, Hamcrest, WebTestClient for integration testing
+- Use `reactor-test` (already in `pom.xml`) for reactive streams testing
 - Use `StepVerifier` to test reactive streams
-- Consider `WebTestClient` for controller integration tests
+- Use `WebTestClient` for controller integration tests with Hamcrest matchers
+- Integration tests located in `src/test/java/.../controller/`
 
 ## API Endpoints
 - `GET /notes` - List all notes
