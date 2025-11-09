@@ -15,6 +15,7 @@ import static org.hamcrest.Matchers.*;
  * Integration tests for NoteController using WebTestClient, JUnit 5, and Hamcrest.
  */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SuppressWarnings("null")
 public class NoteControllerIntegrationTest {
 
     @Autowired
@@ -54,15 +55,12 @@ public class NoteControllerIntegrationTest {
     @Test
     void shouldGetAllNotes() {
         // First create a note
-        Note createdNote = webTestClient.post()
+        webTestClient.post()
                 .uri("/notes")
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(testNote)
                 .exchange()
-                .expectStatus().isCreated()
-                .returnResult(Note.class)
-                .getResponseBody()
-                .blockFirst();
+                .expectStatus().isCreated();
 
         // Then get all notes
         webTestClient.get()

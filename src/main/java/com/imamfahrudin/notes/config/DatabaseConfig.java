@@ -26,6 +26,7 @@ public class DatabaseConfig {
      * @return a configured ConnectionFactoryInitializer that will run the schema initialization
      */
     @Bean
+    @SuppressWarnings("null")
     public ConnectionFactoryInitializer initializer(ConnectionFactory connectionFactory) {
         ConnectionFactoryInitializer initializer = new ConnectionFactoryInitializer();
         initializer.setConnectionFactory(connectionFactory);

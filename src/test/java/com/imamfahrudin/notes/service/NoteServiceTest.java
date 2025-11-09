@@ -19,6 +19,7 @@ import static org.mockito.Mockito.when;
  * Unit tests for NoteService using Mockito and StepVerifier.
  */
 @ExtendWith(MockitoExtension.class)
+@SuppressWarnings("null")
 public class NoteServiceTest {
 
     @Mock
@@ -82,7 +83,6 @@ public class NoteServiceTest {
      * Test saving a note.
      */
     @Test
-    @SuppressWarnings("null")
     void shouldSaveNote() {
         when(noteRepository.save(any(Note.class))).thenReturn(Mono.just(testNote));
 
