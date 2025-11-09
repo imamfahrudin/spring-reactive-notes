@@ -77,11 +77,13 @@ mvn clean package
 ```
 
 ### Testing
-**Configured**: JUnit 5, Hamcrest, WebTestClient for integration testing
+**Configured**: JUnit 5, Hamcrest, AssertJ, WebTestClient for comprehensive testing
 - Use `reactor-test` (already in `pom.xml`) for reactive streams testing
 - Use `StepVerifier` to test reactive streams
+- Use `Mockito` for unit testing with mocked dependencies
 - Use `WebTestClient` for controller integration tests with Hamcrest matchers
-- Integration tests located in `src/test/java/.../controller/`
+- **Unit tests** located in `src/test/java/.../service/` (service layer with mocked repository)
+- **Integration tests** located in `src/test/java/.../controller/` and `src/test/java/.../repository/` (controller and repository layers with real database)
 
 ## API Endpoints
 - `GET /notes` - List all notes
