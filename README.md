@@ -15,7 +15,7 @@ A demo project for Spring Boot Reactive CRUD operations using WebFlux, R2DBC, an
 - Non-blocking database operations with R2DBC and H2
 - RESTful API for note management
 - OpenAPI/Swagger documentation
-- Comprehensive integration testing with JUnit 5 and Hamcrest
+- Comprehensive testing strategy (unit tests, integration tests)
 - Docker containerization
 
 ## Technologies
@@ -26,7 +26,9 @@ A demo project for Spring Boot Reactive CRUD operations using WebFlux, R2DBC, an
 - **R2DBC** for reactive database access
 - **H2 Database** (in-memory)
 - **JUnit 5** for unit and integration testing
-- **Hamcrest** for expressive test assertions
+- **Mockito** for mocking in unit tests
+- **Hamcrest** and **AssertJ** for expressive test assertions
+- **Reactor Test** for reactive stream testing
 - **WebTestClient** for reactive integration testing
 - **Lombok** for reducing boilerplate code
 - **Maven** for build management
@@ -88,12 +90,19 @@ Run the test suite with Maven:
 mvn test
 ```
 
-The project includes comprehensive integration tests using:
+The project includes comprehensive testing across all layers:
+
+- **Unit Tests**: Service layer testing with mocked dependencies using Mockito and StepVerifier
+- **Integration Tests**: Repository and Controller layer testing with real database and WebTestClient
+
+Testing technologies:
 - **JUnit 5** for test framework
-- **Hamcrest** for readable assertions
+- **Mockito** for mocking dependencies in unit tests
+- **Hamcrest** and **AssertJ** for readable assertions
+- **StepVerifier** for testing reactive streams
 - **WebTestClient** for testing reactive REST endpoints
 
-Test coverage includes all CRUD operations and error scenarios.
+Test coverage includes all CRUD operations, error scenarios, and reactive stream behavior.
 
 ## Project Structure
 
@@ -118,8 +127,12 @@ src/
 │       └── schema.sql
 └── test/
     └── java/com/imamfahrudin/notes/
-        └── controller/
-            └── NoteControllerIntegrationTest.java
+        ├── controller/
+        │   └── NoteControllerIntegrationTest.java
+        ├── repository/
+        │   └── NoteRepositoryTest.java
+        └── service/
+            └── NoteServiceTest.java
 ```
 
 ## Contributing
@@ -139,7 +152,8 @@ This project follows conventional commit format. All commit messages must start 
 **Examples:**
 - `feat: add user authentication`
 - `fix: resolve null pointer exception`
-- `test: add integration tests for note controller`
+- `test: add unit tests for note service`
+- `test: add integration tests for note repository`
 - `docs: update README with testing instructions`
 
 ## License
