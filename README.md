@@ -107,32 +107,27 @@ Test coverage includes all CRUD operations, error scenarios, and reactive stream
 ## Project Structure
 
 ```
-src/
-├── main/
-│   ├── java/com/imamfahrudin/notes/
-│   │   ├── SpringReactiveNotesApplication.java
-│   │   ├── config/
-│   │   │   ├── DatabaseConfig.java
-│   │   │   └── OpenApiConfig.java
-│   │   ├── controller/
-│   │   │   └── NoteController.java
-│   │   ├── model/
-│   │   │   └── Note.java
-│   │   ├── repository/
-│   │   │   └── NoteRepository.java
-│   │   └── service/
-│   │       └── NoteService.java
-│   └── resources/
-│       ├── application.yml
-│       └── schema.sql
-└── test/
-    └── java/com/imamfahrudin/notes/
-        ├── controller/
-        │   └── NoteControllerIntegrationTest.java
-        ├── repository/
-        │   └── NoteRepositoryTest.java
-        └── service/
-            └── NoteServiceTest.java
+spring-reactive-notes/
+├── src/
+│   ├── main/
+│   │   ├── java/com/imamfahrudin/notes/
+│   │   │   ├── SpringReactiveNotesApplication.java
+│   │   │   ├── config/          # Database and OpenAPI configuration
+│   │   │   ├── controller/      # REST endpoints
+│   │   │   ├── model/           # Entity classes
+│   │   │   ├── repository/      # R2DBC repositories
+│   │   │   └── service/         # Business logic layer
+│   │   └── resources/           # Application config and DB schema
+│   └── test/
+│       └── java/com/imamfahrudin/notes/
+│           ├── SpringReactiveNotesApplicationTest.java
+│           ├── controller/      # Integration tests
+│           ├── repository/      # Repository tests
+│           └── service/         # Unit tests
+├── docker-compose.yml
+├── Dockerfile
+├── pom.xml
+└── README.md
 ```
 
 ## Contributing
