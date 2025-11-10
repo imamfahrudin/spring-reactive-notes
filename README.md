@@ -82,6 +82,33 @@ A demo project for Spring Boot Reactive CRUD operations using WebFlux, R2DBC, an
 mvn clean package
 ```
 
+## CI/CD
+
+This project uses GitHub Actions for continuous integration and deployment.
+
+### Workflows
+
+- **CI** (`.github/workflows/ci.yml`): Runs on every push and pull request
+  - Tests on Java 17 and 21
+  - Builds the application
+  - Builds and pushes Docker image to Docker Hub (on main branch)
+  
+- **Code Quality** (`.github/workflows/code-quality.yml`): Runs on every push and pull request
+  - Dependency vulnerability checks
+  - Code coverage reporting with JaCoCo
+  - Uploads coverage to Codecov
+
+- **Release** (`.github/workflows/release.yml`): Runs when a version tag is pushed
+  - Creates a GitHub release
+  - Uploads the built JAR file
+
+### Dependabot
+
+Automated dependency updates are configured in `.github/dependabot.yml`:
+- Weekly Maven dependency updates
+- Weekly GitHub Actions updates
+- Automatic PR creation with reviews assigned
+
 ### Testing
 
 Run the test suite with Maven:
