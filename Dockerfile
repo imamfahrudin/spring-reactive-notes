@@ -1,25 +1,37 @@
-# Use the official OpenJDK 21 image as the base image
-FROM openjdk:21-jdk-slim
+# Multi-stage build for Spring Boot application
+FROM eclipse-temurin:21-jdk-alpine AS builder
 
-# Set the working directory inside the container
+# Set working directory
 WORKDIR /app
 
-# Copy the Maven wrapper and pom.xml to leverage Docker layer caching
-COPY pom.xml ./
+# Copy Maven wrapper and pom.xml for dependency caching
+COPY mvnw pom.xml ./
 COPY .mvn .mvn
-COPY mvnw ./
 
-# Download dependencies (this layer will be cached if pom.xml hasn't changed)
+# Download dependencies (cached if pom.xml unchanged)
 RUN ./mvnw dependency:go-offline -B
 
-# Copy the source code
+# Copy source code
 COPY src ./src
 
 # Build the application
 RUN ./mvnw clean package -DskipTests
 
-# Expose the port the app runs on
+# Runtime stage
+FROM eclipse-temurin:21-jre-alpine
+
+# Set working directory
+WORKDIR /app
+
+# Copy the built JAR from builder stage
+COPY --from=builder /app/target/*.jar app.jar
+
+# Expose port
 EXPOSE 8080
 
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD wget --no-verbose --tries=1 --spider http://localhost:8080/actuator/health || exit 1
+
 # Run the application
-CMD ["java", "-jar", "target/spring-reactive-notes-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]
